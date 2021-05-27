@@ -1,0 +1,118 @@
+<div>
+  <div>
+    <h1>
+      List of all ratings
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new rating
+    </h2>
+
+    <form action="/insert_rating" method="post">
+      <div>
+        <label for="rating_value_box">
+          Rating value
+        </label>
+
+        <input type="text" id="rating_value_box" name="query_rating_value">
+      </div>
+
+      <div>
+        <label for="burrito_id_box">
+          Burrito
+        </label>
+
+        <input type="text" id="burrito_id_box" name="query_burrito_id">
+      </div>
+
+      <div>
+        <label for="rater_id_box">
+          Rater
+        </label>
+
+        <input type="text" id="rater_id_box" name="query_rater_id">
+      </div>
+
+      <button>
+        Create rating
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Rating value
+        </th>
+
+        <th>
+          Burrito
+        </th>
+
+        <th>
+          Rater
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_ratings.each do |a_rating| %>
+      <tr>
+        <td>
+          <%= a_rating.id %>
+        </td>
+
+        <td>
+          <%= a_rating.rating_value %>
+        </td>
+
+        <td>
+          <%= a_rating.burrito_id %>
+        </td>
+
+        <td>
+          <%= a_rating.rater_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_rating.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_rating.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/ratings/<%= a_rating.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

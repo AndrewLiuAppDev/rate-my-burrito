@@ -1,0 +1,161 @@
+<div>
+  <div>
+    <h1>
+      Burrito #<%= @the_burrito.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/burritos">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_burrito/<%= @the_burrito.id %>">
+          Delete burrito
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_burrito.name %>
+      </dd>
+
+      <dt>
+        Tortilla
+      </dt>
+      <dd>
+        <%= @the_burrito.tortilla %>
+      </dd>
+
+      <dt>
+        Image
+      </dt>
+      <dd>
+        <%= @the_burrito.image %>
+      </dd>
+
+      <dt>
+        Restaurant
+      </dt>
+      <dd>
+        <%= @the_burrito.restaurant_id %>
+      </dd>
+
+      <dt>
+        Owner
+      </dt>
+      <dd>
+        <%= @the_burrito.owner_id %>
+      </dd>
+
+      <dt>
+        Price
+      </dt>
+      <dd>
+        <%= @the_burrito.price %>
+      </dd>
+
+      <dt>
+        Ratings count
+      </dt>
+      <dd>
+        <%= @the_burrito.ratings_count %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_burrito.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_burrito.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit burrito
+    </h2>
+
+    <form action="/modify_burrito/<%= @the_burrito.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_burrito.name %>">
+      </div>
+
+      <div>
+        <label for="tortilla_box">
+          Tortilla
+        </label>
+
+        <input type="text" id="tortilla_box" name="query_tortilla" value="<%= @the_burrito.tortilla %>">
+      </div>
+
+      <div>
+        <label for="image_box">
+          Image
+        </label>
+
+        <input type="text" id="image_box" name="query_image" value="<%= @the_burrito.image %>">
+      </div>
+
+      <div>
+        <label for="restaurant_id_box">
+          Restaurant
+        </label>
+
+        <input type="text" id="restaurant_id_box" name="query_restaurant_id" value="<%= @the_burrito.restaurant_id %>">
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_burrito.owner_id %>">
+      </div>
+
+      <div>
+        <label for="price_box">
+          Price
+        </label>
+
+        <input type="text" id="price_box" name="query_price" value="<%= @the_burrito.price %>">
+      </div>
+
+      <div>
+        <label for="ratings_count_box">
+          Ratings count
+        </label>
+
+        <input type="text" id="ratings_count_box" name="query_ratings_count" value="<%= @the_burrito.ratings_count %>">
+      </div>
+
+      <button>
+        Update burrito
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

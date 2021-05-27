@@ -1,0 +1,182 @@
+<div>
+  <div>
+    <h1>
+      List of all burritos
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new burrito
+    </h2>
+
+    <form action="/insert_burrito" method="post">
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <div>
+        <label for="tortilla_box">
+          Tortilla
+        </label>
+
+        <input type="text" id="tortilla_box" name="query_tortilla">
+      </div>
+
+      <div>
+        <label for="image_box">
+          Image
+        </label>
+
+        <input type="text" id="image_box" name="query_image">
+      </div>
+
+      <div>
+        <label for="restaurant_id_box">
+          Restaurant
+        </label>
+
+        <input type="text" id="restaurant_id_box" name="query_restaurant_id">
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id">
+      </div>
+
+      <div>
+        <label for="price_box">
+          Price
+        </label>
+
+        <input type="text" id="price_box" name="query_price">
+      </div>
+
+      <div>
+        <label for="ratings_count_box">
+          Ratings count
+        </label>
+
+        <input type="text" id="ratings_count_box" name="query_ratings_count">
+      </div>
+
+      <button>
+        Create burrito
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Tortilla
+        </th>
+
+        <th>
+          Image
+        </th>
+
+        <th>
+          Restaurant
+        </th>
+
+        <th>
+          Owner
+        </th>
+
+        <th>
+          Price
+        </th>
+
+        <th>
+          Ratings count
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_burritos.each do |a_burrito| %>
+      <tr>
+        <td>
+          <%= a_burrito.id %>
+        </td>
+
+        <td>
+          <%= a_burrito.name %>
+        </td>
+
+        <td>
+          <%= a_burrito.tortilla %>
+        </td>
+
+        <td>
+          <%= a_burrito.image %>
+        </td>
+
+        <td>
+          <%= a_burrito.restaurant_id %>
+        </td>
+
+        <td>
+          <%= a_burrito.owner_id %>
+        </td>
+
+        <td>
+          <%= a_burrito.price %>
+        </td>
+
+        <td>
+          <%= a_burrito.ratings_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_burrito.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_burrito.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/burritos/<%= a_burrito.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

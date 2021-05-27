@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Rating #<%= @the_rating.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/ratings">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_rating/<%= @the_rating.id %>">
+          Delete rating
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Rating value
+      </dt>
+      <dd>
+        <%= @the_rating.rating_value %>
+      </dd>
+
+      <dt>
+        Burrito
+      </dt>
+      <dd>
+        <%= @the_rating.burrito_id %>
+      </dd>
+
+      <dt>
+        Rater
+      </dt>
+      <dd>
+        <%= @the_rating.rater_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_rating.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_rating.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit rating
+    </h2>
+
+    <form action="/modify_rating/<%= @the_rating.id %>"  method="post" >
+      <div>
+        <label for="rating_value_box">
+          Rating value
+        </label>
+
+        <input type="text" id="rating_value_box" name="query_rating_value" value="<%= @the_rating.rating_value %>">
+      </div>
+
+      <div>
+        <label for="burrito_id_box">
+          Burrito
+        </label>
+
+        <input type="text" id="burrito_id_box" name="query_burrito_id" value="<%= @the_rating.burrito_id %>">
+      </div>
+
+      <div>
+        <label for="rater_id_box">
+          Rater
+        </label>
+
+        <input type="text" id="rater_id_box" name="query_rater_id" value="<%= @the_rating.rater_id %>">
+      </div>
+
+      <button>
+        Update rating
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
