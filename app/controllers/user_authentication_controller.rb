@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  # skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -43,10 +43,10 @@ class UserAuthenticationController < ApplicationController
     @user.password_confirmation = params.fetch("query_password_confirmation")
     @user.user_type = params.fetch("query_user_type")
     @user.name = params.fetch("query_name")
-    @user.avatar = params.fetch("query_avatar")
-    @user.burritos_count = params.fetch("query_burritos_count")
-    @user.ratings_count = params.fetch("query_ratings_count")
-    @user.restaurants_count = params.fetch("query_restaurants_count")
+    @user.avatar = ""
+    @user.burritos_count = 0
+    @user.ratings_count = 0
+    @user.restaurants_count = 0
 
     save_status = @user.save
 
@@ -90,5 +90,21 @@ class UserAuthenticationController < ApplicationController
     
     redirect_to("/", { :notice => "User account cancelled" })
   end
+
+private
+
+    def set_user
+      if params[:user_id]
+        @user = User.find_by!(user_id: params.fetch(:user_id))
+      else
+        @user = current_user
+      end
+    end
+
+    def must_be_owner_to_view
+      if current_user != @user
+        redirect_back fallback_location: root_url, alert: "You're not authorized for that."
+      end
+    end
  
 end

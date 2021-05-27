@@ -12,6 +12,7 @@ gem "nokogiri", ">= 1.10.8"
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'sprockets', '< 4'
 gem 'sassc-rails'
+gem 'devise'
 
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 

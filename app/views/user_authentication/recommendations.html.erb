@@ -1,0 +1,7 @@
+<% @current_user.burritos.each do |burrito| %>
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <%= render "burritos/burrito", burrito: burrito %>
+    </div>
+  </div>
+<% end %>

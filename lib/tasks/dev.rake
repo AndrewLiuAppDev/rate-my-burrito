@@ -22,7 +22,7 @@ task({ :sample_data => :environment}) do
 
     user = User.create(
       email: "#{username}@example.com",
-      password_digest: "password",
+      password: "password",
       name: "#{person[:first_name]} #{person[:last_name]}",
       burritos_count: 0,
       ratings_count: 0,
@@ -44,7 +44,7 @@ task({ :sample_data => :environment}) do
   end
 
   tortillatype = ["Corn", "Flour"]
-  burritoimages = ["https://tinyurl.com/nesuzs4w", "https://tinyurl.com/26hw2f44", "https://tinyurl.com/7jt538v4", "https://tinyurl.com/534tmycd", "https://tinyurl.com/2t468mk9", "https://tinyurl.com/rp6yfdfm"]
+  burritoimages = ["https://tinyurl.com/nesuzs4w", "https://tinyurl.com/26hw2f44", "https://tinyurl.com/7jt538v4", "https://tinyurl.com/534tmycd", "https://tinyurl.com/2v76kz6x", "https://tinyurl.com/rp6yfdfm"]
   restaurants = Restaurant.all
 
   users.each do |user|

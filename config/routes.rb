@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
+  root "user_authentication#recommendations"
 
+  get ":user_id/recommendations" => "user_authentication#recommendations", as: :recommendations
 
   # Routes for the Rating resource:
-
-  root "user_authentication#feed"
 
   # CREATE
   post("/insert_rating", { :controller => "ratings", :action => "create" })
