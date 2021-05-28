@@ -66,7 +66,7 @@ task({ :sample_data => :environment}) do
     burritos.each do |burrito|
       if rand < 0.5
         user_rating = user.ratings.create(
-          rating_value: rand(1..6),
+          rating_value: rand(1..5),
           burrito: burrito
         )
       end

@@ -18,4 +18,14 @@ class Burrito < ApplicationRecord
   has_many(:ratings, { :class_name => "Rating", :foreign_key => "burrito_id", :dependent => :destroy })
   belongs_to(:restaurant, { :required => false, :class_name => "Restaurant", :foreign_key => "restaurant_id", :counter_cache => true })
   has_many(:raters, { :through => :ratings, :source => :rater })
+
+  def avg_rating
+    ratings = Rating.where({ :burrito_id => self.id })
+    sum_of_ratings = 0
+    ratings.each do |rating|
+      additional_ratings = rating.rating_value
+      sum_of_ratings = additional_ratings + sum_of_ratings
+    end
+    avg_rating = sum_of_ratings / ratings.size
+  end
 end

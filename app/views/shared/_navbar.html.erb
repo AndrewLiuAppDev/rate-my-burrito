@@ -8,9 +8,9 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
-        <% if user_signed_in? %>
+        <% if @current_user != nil %>
         <li class="nav-item">
-          <%= link_to recommendations_path(current_user.id), class: "nav-link active" do %>
+          <%= link_to recommendations_path(@current_user.id), class: "nav-link active" do %>
             Recommendations
           <% end %>
         </li>

@@ -1,3 +1,32 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+  color: orange;
+}
+</style>
+</head>
+<body>
+
 <div id="<%= dom_id(burrito) %>" class="card">
+  <h5><%= Restaurant.where({ :id => burrito.restaurant_id }).at(0).name %></h5>
   <%= image_tag burrito.image, class: "img-fluid" %>
+  <h5><%= burrito.name %></h5>
+  <h5>$<%= burrito.price %></h5>
+  <h5><%= burrito.tortilla %></h5>
+  <h5><%= burrito.avg_rating %></h5>
+  <div>
+    <% burrito.avg_rating.round(0).times do |star| %>
+    <span class="fa fa-star checked"></span>
+    <% end %>
+    <% (5-burrito.avg_rating).round(0).times do |star| %>
+    <span class="fa fa-star"></span>
+    <% end %>
+  </div>
 </div>
+
+
+
+</body>
+</html>
