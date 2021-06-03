@@ -23,4 +23,7 @@ class User < ApplicationRecord
   has_many(:ratings, { :class_name => "Rating", :foreign_key => "rater_id", :dependent => :nullify })
   has_many(:restaurants, { :class_name => "Restaurant", :foreign_key => "owner_id", :dependent => :destroy })
   has_many(:rated_burritos, { :through => :ratings, :source => :burrito })
+
+  def recommendation
+  end
 end
