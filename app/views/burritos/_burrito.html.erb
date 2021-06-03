@@ -15,7 +15,7 @@
   <h5><%= burrito.name %></h5>
   <h5>$<%= burrito.price %></h5>
   <h5><%= burrito.tortilla %></h5>
-  <h5><%= burrito.avg_rating %></h5>
+  <h5><%= burrito.avg_rating.round(1) %></h5>
   <div>
     <% burrito.avg_rating.round(0).times do |star| %>
     <span class="fa fa-star checked"></span>
