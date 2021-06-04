@@ -1,66 +1,98 @@
 class BurritosController < ApplicationController
-  def index
-    matching_burritos = Burrito.all
-
-    @list_of_burritos = matching_burritos.order({ :created_at => :desc })
-
-    render({ :template => "burritos/index.html.erb" })
-  end
-
-  def show
-    the_id = params.fetch("path_id")
-
-    matching_burritos = Burrito.where({ :id => the_id })
-
-    @the_burrito = matching_burritos.at(0)
-
-    render({ :template => "burritos/show.html.erb" })
-  end
+  before_action :set_burrito, only: %i[ show edit update destroy ]
 
   def create
-    the_burrito = Burrito.new
-    the_burrito.name = params.fetch("query_name")
-    the_burrito.tortilla = params.fetch("query_tortilla")
-    the_burrito.image = params.fetch("query_image")
-    the_burrito.restaurant_id = params.fetch("query_restaurant_id")
-    the_burrito.owner_id = params.fetch("query_owner_id")
-    the_burrito.price = params.fetch("query_price")
-    the_burrito.ratings_count = params.fetch("query_ratings_count")
+    @burrito = Burrito.new
+    @burrito.name = params.fetch("name")
+    @burrito.tortilla = params.fetch("tortilla")
+    @burrito.image = params.fetch("image")
+    @burrito.restaurant_id = params.fetch("restaurant_id")
+    @burrito.owner_id = params.fetch("owner_id")
+    @burrito.price = params.fetch("price")
+    @burrito.ratings_count = params.fetch("ratings_count")
 
-    if the_burrito.valid?
-      the_burrito.save
-      redirect_to("/burritos", { :notice => "Burrito created successfully." })
-    else
-      redirect_to("/burritos", { :notice => "Burrito failed to create successfully." })
+    respond_to do |format|
+      if @burrito.save
+        format.html { redirect_back fallback_location: root_path, notice: "Burrito was successfully created." }
+        format.json { render :show, status: :created, location: @burrito }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @burrito.errors, status: :unprocessable_entity }
+      end
     end
+    
+    # burrito = Burrito.new
+    # burrito.name = params.fetch("name")
+    # burrito.tortilla = params.fetch("tortilla")
+    # burrito.image = params.fetch("image")
+    # burrito.restaurant_id = params.fetch("restaurant_id")
+    # burrito.owner_id = params.fetch("owner_id")
+    # burrito.price = params.fetch("price")
+    # burrito.ratings_count = params.fetch("ratings_count")
+
+    # if burrito.valid?
+    #   burrito.save
+    #   redirect_to("/burritos", { :notice => "Burrito created successfully." })
+    # else
+    #   redirect_to("/burritos", { :notice => "Burrito failed to create successfully." })
+    # end
   end
 
   def update
-    the_id = params.fetch("path_id")
-    the_burrito = Burrito.where({ :id => the_id }).at(0)
 
-    the_burrito.name = params.fetch("query_name")
-    the_burrito.tortilla = params.fetch("query_tortilla")
-    the_burrito.image = params.fetch("query_image")
-    the_burrito.restaurant_id = params.fetch("query_restaurant_id")
-    the_burrito.owner_id = params.fetch("query_owner_id")
-    the_burrito.price = params.fetch("query_price")
-    the_burrito.ratings_count = params.fetch("query_ratings_count")
-
-    if the_burrito.valid?
-      the_burrito.save
-      redirect_to("/burritos/#{the_burrito.id}", { :notice => "Burrito updated successfully."} )
-    else
-      redirect_to("/burritos/#{the_burrito.id}", { :alert => "Burrito failed to update successfully." })
+    unless BurritoPolicy.new(@current_user, @burrito).update?
+      raise Pundit::NotAuthorizedError, "not allowed"
     end
+    respond_to do |format|
+      if @burrito.update(burrito_params)
+        format.html { redirect_to root_url, notice: "Burrito was successfully updated." }
+        format.json { render :show, status: :ok, location: @burrito }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @burrito.errors, status: :unprocessable_entity }
+      end
+    end
+
+    # @burrito.name = params.fetch("name")
+    # @burrito.tortilla = params.fetch("tortilla")
+    # @burrito.image = params.fetch("image")
+    # @burrito.restaurant_id = params.fetch("restaurant_id")
+    # @burrito.owner_id = params.fetch("owner_id")
+    # @burrito.price = params.fetch("price")
+    # @burrito.ratings_count = params.fetch("ratings_count")
+
+    # if @burrito.valid?
+    #   burrito.save
+    #   redirect_to("/burritos/#{burrito.id}", { :notice => "Burrito updated successfully."} )
+    # else
+    #   redirect_to("/burritos/#{burrito.id}", { :alert => "Burrito failed to update successfully." })
+    # end
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_burrito = Burrito.where({ :id => the_id }).at(0)
+    unless BurritoPolicy.new(@current_user, @burrito).destroy?
+      raise Pundit::NotAuthorizedError, "not allowed"
+    end
+    @burrito.destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_url, notice: "Burrito was successfully destroyed." }
+      format.json { head :no_content }
+    end
+    # id = params.fetch("burrito_id")
+    # burrito = Burrito.where( id: id ).at(0)
+    
+    # burrito.destroy
+    
+    # respond_to do |format|
+    #   format.html { redirect_back fallback_location: root_url, notice: "Burrito deleted successfully." }
 
-    the_burrito.destroy
-
-    redirect_to("/burritos", { :notice => "Burrito deleted successfully."} )
+    #   format.js { render template: "burritos/destroy.js.erb"}
+    # end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_burrito
+      @burrito = Burrito.find(params[:id])
+    end
 end

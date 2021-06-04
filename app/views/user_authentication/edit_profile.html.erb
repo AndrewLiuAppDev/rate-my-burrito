@@ -7,41 +7,25 @@
     <form action="/modify_user" method="post">
       <div>
         <label for="email_box">Email</label>
-        <input id="email_box" name="query_email" value="<%= @current_user.email %>">
+        <input id="email_box" name="email" value="<%= @current_user.email %>">
       </div>
       <div>
         <label for="user_type_box">User type</label>
-        <input id="user_type_box" name="query_user_type" value="<%= @current_user.user_type %>">
+        <input id="user_type_box" name="user_type" value="<%= @current_user.user_type %>">
       </div>
       <div>
         <label for="name_box">Name</label>
-        <input id="name_box" name="query_name" value="<%= @current_user.name %>">
-      </div>
-      <div>
-        <label for="avatar_box">Avatar</label>
-        <input id="avatar_box" name="query_avatar" value="<%= @current_user.avatar %>">
-      </div>
-      <div>
-        <label for="burritos_count_box">Burritos count</label>
-        <input id="burritos_count_box" name="query_burritos_count" value="<%= @current_user.burritos_count %>">
-      </div>
-      <div>
-        <label for="ratings_count_box">Ratings count</label>
-        <input id="ratings_count_box" name="query_ratings_count" value="<%= @current_user.ratings_count %>">
-      </div>
-      <div>
-        <label for="restaurants_count_box">Restaurants count</label>
-        <input id="restaurants_count_box" name="query_restaurants_count" value="<%= @current_user.restaurants_count %>">
+        <input id="name_box" name="name" value="<%= @current_user.name %>">
       </div>
 
       <div>
         <label for="password_box">Password</label>
-        <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
+        <input id="password_box" name="password" placeholder="Choose a password..." type="password">
       </div>
     
       <div>
         <label for="password_confirmation_box">Password Confirmation</label>
-        <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
+        <input id="password_confirmation_box" name="password_confirmation" placeholder="Confirm your password..." type="password">
       </div>
 
       <button>

@@ -14,4 +14,6 @@ class Restaurant < ApplicationRecord
   belongs_to(:owner, { :required => false, :class_name => "User", :foreign_key => "owner_id", :counter_cache => true })
   has_many(:burritos, { :class_name => "Burrito", :foreign_key => "restaurant_id", :dependent => :destroy })
   has_many(:ratings, { :through => :burritos, :source => :ratings })
+
+  validates :name, presence: true
 end

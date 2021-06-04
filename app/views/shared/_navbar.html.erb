@@ -1,31 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="/">
-      Rate My Burrito
-    </a>
+    <%= link_to "Rate My Burrito", root_path, class: "navbar-brand" %>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible-nav-links" aria-controls="collapsible-nav-links" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="collapsible-nav-links">
+    <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Index
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="/ratings" class="dropdown-item">
-              Ratings
-            </a>
-            <a href="/restaurants" class="dropdown-item">
-              Restaurants
-            </a>
-            <a href="/burritos" class="dropdown-item">
-              Burritos
-            </a>
-          </div>
+        <% if @current_user != nil %>
+        <li class="nav-item">
+          <%= link_to recommendations_path(@current_user.id), class: "nav-link active" do %>
+            Recommendations
+          <% end %>
         </li>
+        <li class="nav-item">
+          <%= link_to restaurants_path, class: "nav-link active" do %>
+            Restaurants
+          <% end %>
+        </li>
+        <ul class="navbar-nav ms-md-auto">
+          <li class="nav-item">
+            <%= link_to edit_user_profile_path, class: "nav-link" do %>
+
+              Your profile
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to user_sign_out_path, class: "nav-link" do %>
+
+              Sign out
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign in", user_sign_in_path, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Sign up", user_sign_up_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </div> <!-- .navbar-collapse -->
   </div> <!-- .container -->

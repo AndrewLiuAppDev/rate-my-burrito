@@ -1,0 +1,17 @@
+<table style="width:100%">
+<tr>
+<td>
+<div id="<%= dom_id(restaurant) %>" class="media">
+  <%= image_tag(restaurant.image, class: "mr-3 rounded-circle", width: 128) %>
+</td>
+<td>
+  <div class="media-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="mt-0 mb-3 display-4">
+        <%= link_to restaurant.name, restaurant_path(restaurant) %>
+      </h2>
+    </div>
+  </div>
+</td>
+</tr>
+</div>

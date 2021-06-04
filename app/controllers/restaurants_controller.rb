@@ -1,60 +1,92 @@
 class RestaurantsController < ApplicationController
+  before_action :set_restaurant, only: %i[ show edit update destroy ]
   def index
-    matching_restaurants = Restaurant.all
-
-    @list_of_restaurants = matching_restaurants.order({ :created_at => :desc })
-
-    render({ :template => "restaurants/index.html.erb" })
+    @restaurants = Restaurant.all
   end
 
   def show
-    the_id = params.fetch("path_id")
-
-    matching_restaurants = Restaurant.where({ :id => the_id })
-
-    @the_restaurant = matching_restaurants.at(0)
-
-    render({ :template => "restaurants/show.html.erb" })
   end
 
   def create
-    the_restaurant = Restaurant.new
-    the_restaurant.name = params.fetch("query_name")
-    the_restaurant.owner_id = params.fetch("query_owner_id")
-    the_restaurant.image = params.fetch("query_image")
-    the_restaurant.burritos_count = params.fetch("query_burritos_count")
+    @restaurant = Restaurant.new
+    @restaurant.name = params.fetch("name")
+    @restaurant.owner_id = params.fetch("owner_id")
+    @restaurant.image = params.fetch("image")
+    @restaurant.burritos_count = params.fetch("burritos_count")
 
-    if the_restaurant.valid?
-      the_restaurant.save
-      redirect_to("/restaurants", { :notice => "Restaurant created successfully." })
-    else
-      redirect_to("/restaurants", { :notice => "Restaurant failed to create successfully." })
+    respond_to do |format|
+      if @restaurant.save
+        format.html { redirect_back fallback_location: root_path, notice: "Restaurant was successfully created." }
+        format.json { render :show, status: :created, location: @restaurant }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
+      end
     end
+
+    # if restaurant.valid?
+    #   restaurant.save
+    #   redirect_to("/restaurants", { :notice => "Restaurant created successfully." })
+    # else
+    #   redirect_to("/restaurants", { :notice => "Restaurant failed to create successfully." })
+    # end
   end
 
   def update
-    the_id = params.fetch("path_id")
-    the_restaurant = Restaurant.where({ :id => the_id }).at(0)
-
-    the_restaurant.name = params.fetch("query_name")
-    the_restaurant.owner_id = params.fetch("query_owner_id")
-    the_restaurant.image = params.fetch("query_image")
-    the_restaurant.burritos_count = params.fetch("query_burritos_count")
-
-    if the_restaurant.valid?
-      the_restaurant.save
-      redirect_to("/restaurants/#{the_restaurant.id}", { :notice => "Restaurant updated successfully."} )
-    else
-      redirect_to("/restaurants/#{the_restaurant.id}", { :alert => "Restaurant failed to update successfully." })
+    unless RestaurantPolicy.new(@current_user, @restaurant).update?
+      raise Pundit::NotAuthorizedError, "not allowed"
     end
+    respond_to do |format|
+      if @restaurant.update(restaurant_params)
+        format.html { redirect_to root_url, notice: "Restaurant was successfully updated." }
+        format.json { render :show, status: :ok, location: @restaurant }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
+      end
+    end
+    
+    # id = params.fetch("restaurant_id")
+    # restaurant = Restaurant.where({ :id => id }).at(0)
+
+    
+
+    # restaurant.name = params.fetch("name")
+    # restaurant.owner_id = params.fetch("owner_id")
+    # restaurant.image = params.fetch("image")
+    # restaurant.burritos_count = params.fetch("burritos_count")
+
+    # if restaurant.valid?
+    #   restaurant.save
+    #   redirect_to("/restaurants/#{restaurant.id}", { :notice => "Restaurant updated successfully."} )
+    # else
+    #   redirect_to("/restaurants/#{restaurant.id}", { :alert => "Restaurant failed to update successfully." })
+    # end
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_restaurant = Restaurant.where({ :id => the_id }).at(0)
+    unless RestaurantPolicy.new(@current_user, @restaurant).destroy?
+      raise Pundit::NotAuthorizedError, "not allowed"
+    end
+    @restaurant.destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_url, notice: "Restaurant was successfully destroyed." }
+      format.json { head :no_content }
+    end
 
-    the_restaurant.destroy
+    # id = params.fetch("restaurant_id")
+    # restaurant = Restaurant.where({ :id => id }).at(0)
+    # restaurant.destroy
 
-    redirect_to("/restaurants", { :notice => "Restaurant deleted successfully."} )
+    # respond_to do |format|
+    #   format.html { redirect_back fallback_location: root_url, notice: "Restaurant deleted successfully." }
+
+    #   format.js { render template: "restaurant/destroy.js.erb"}
+    # end
   end
+   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_restaurant
+      @restaurant = Restaurant.find(params[:id])
+    end
 end

@@ -20,7 +20,7 @@
           Name
         </label>
 
-        <input type="text" id="name_box" name="query_name">
+        <input type="text" id="name_box" name="name">
       </div>
 
       <div>
@@ -28,7 +28,7 @@
           Tortilla
         </label>
 
-        <input type="text" id="tortilla_box" name="query_tortilla">
+        <input type="text" id="tortilla_box" name="tortilla">
       </div>
 
       <div>
@@ -36,7 +36,7 @@
           Image
         </label>
 
-        <input type="text" id="image_box" name="query_image">
+        <input type="text" id="image_box" name="image">
       </div>
 
       <div>
@@ -44,7 +44,7 @@
           Restaurant
         </label>
 
-        <input type="text" id="restaurant_id_box" name="query_restaurant_id">
+        <input type="text" id="restaurant_id_box" name="restaurant_id">
       </div>
 
       <div>
@@ -52,7 +52,7 @@
           Owner
         </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id">
+        <input type="text" id="owner_id_box" name="owner_id">
       </div>
 
       <div>
@@ -60,7 +60,7 @@
           Price
         </label>
 
-        <input type="text" id="price_box" name="query_price">
+        <input type="text" id="price_box" name="price">
       </div>
 
       <div>
@@ -68,7 +68,7 @@
           Ratings count
         </label>
 
-        <input type="text" id="ratings_count_box" name="query_ratings_count">
+        <input type="text" id="ratings_count_box" name="ratings_count">
       </div>
 
       <button>
@@ -127,7 +127,7 @@
         </th>
       </tr>
 
-      <% @list_of_burritos.each do |a_burrito| %>
+      <% @burritos.each do |a_burrito| %>
       <tr>
         <td>
           <%= a_burrito.id %>

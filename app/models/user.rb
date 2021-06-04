@@ -23,4 +23,14 @@ class User < ApplicationRecord
   has_many(:ratings, { :class_name => "Rating", :foreign_key => "rater_id", :dependent => :nullify })
   has_many(:restaurants, { :class_name => "Restaurant", :foreign_key => "owner_id", :dependent => :destroy })
   has_many(:rated_burritos, { :through => :ratings, :source => :burrito })
+
+ def recommendation
+    all_burritos = Burrito.all
+    owned_burritos = Burrito.where(owner_id: self.id)
+    all_burritos.delete(owned_burritos)
+    sorted_burritos = all_burritos.sort do |a,b|
+      b.avg_rating <=> a.avg_rating
+    end
+    recommended_burritos = sorted_burritos[0,9]
+  end
 end

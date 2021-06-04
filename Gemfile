@@ -12,14 +12,18 @@ gem "nokogiri", ">= 1.10.8"
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'sprockets', '< 4'
 gem 'sassc-rails'
+gem 'devise'
 
-gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'faker'
+gem 'pundit'
 
 group :development do
   gem 'listen', '~> 3.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring'
   gem 'web-console', '>= 3.3.0'
+  gem "rails-erd"
+  gem 'rack-mini-profiler', '~> 2.0'
 end
 
 group :development, :test do

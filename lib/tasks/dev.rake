@@ -22,7 +22,7 @@ task({ :sample_data => :environment}) do
 
     user = User.create(
       email: "#{username}@example.com",
-      password_digest: "password",
+      password: "password",
       name: "#{person[:first_name]} #{person[:last_name]}",
       burritos_count: 0,
       ratings_count: 0,
@@ -33,18 +33,20 @@ task({ :sample_data => :environment}) do
   end
 
   users = User.all
+  restaurantimages = ["https://tinyurl.com/upnpwa2", "https://tinyurl.com/uwb7bn6y", "https://tinyurl.com/s53hynn6", "https://tinyurl.com/abpsnv9x", "https://tinyurl.com/xjn7zpsc"]
 
   users.each do |user|
     rand(3).times do
       restaurant = user.restaurants.create(
         name: Faker::Restaurant.name,
-        burritos_count: 0
+        burritos_count: 0,
+        image: restaurantimages.sample
       )
     end
   end
 
   tortillatype = ["Corn", "Flour"]
-  burritoimages = ["https://tinyurl.com/nesuzs4w", "https://tinyurl.com/26hw2f44", "https://tinyurl.com/7jt538v4", "https://tinyurl.com/534tmycd", "https://tinyurl.com/2t468mk9", "https://tinyurl.com/rp6yfdfm"]
+  burritoimages = ["https://tinyurl.com/nesuzs4w", "https://tinyurl.com/26hw2f44", "https://tinyurl.com/7jt538v4", "https://tinyurl.com/534tmycd", "https://tinyurl.com/2v76kz6x", "https://tinyurl.com/rp6yfdfm"]
   restaurants = Restaurant.all
 
   users.each do |user|
@@ -66,7 +68,7 @@ task({ :sample_data => :environment}) do
     burritos.each do |burrito|
       if rand < 0.5
         user_rating = user.ratings.create(
-          rating_value: rand(1..6),
+          rating_value: rand(1..5),
           burrito: burrito
         )
       end
