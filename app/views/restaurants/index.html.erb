@@ -1,64 +1,49 @@
-<div>
-  <div>
-    <h1>
-      List of all restaurants
-    </h1>
-  </div>
-</div>
+<br>
+<div class="col offset-md-2">
+<%= form_with(url: new_restaurant_path, class: "d-inline-block") do |restaurant| %>
+    <%= label_tag :name, "Restaurant Name" %>
+    <%= text_field_tag :name %>
+    <%= label_tag :image, "Image URL" %>
+    <%= text_field_tag :image %>
 
-<hr>
+    <%= hidden_field_tag :owner_id, @current_user.id %>
+    <%= hidden_field_tag :burritos_count, 0 %>
 
-<div>
-  <div>
-    <h2>
-      Add a new restaurant
-    </h2>
-
-    <form action="/insert_restaurant" method="post">
-      <div>
-        <label for="name_box">
-          Name
-        </label>
-
-        <input type="text" id="name_box" name="name">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="owner_id">
-      </div>
-
-      <div>
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="image">
-      </div>
-
-      <div>
-        <label for="burritos_count_box">
-          Burritos count
-        </label>
-
-        <input type="text" id="burritos_count_box" name="burritos_count">
-      </div>
-
-      <button>
-        Create restaurant
-      </button>
-    </form>
-  </div>
+    <%= button_tag 'Add restaurant', class: 'btn btn-primary' %>
+<% end %>
 </div>
 
 <br>
 <% @list_of_restaurants.each do |restaurant| %>
   <div class="row mb-4">
     <div class="col-md-6 offset-md-3">
-      <%= render "restaurants/restaurant", restaurant: restaurant %>
+      <table style="width:100%">
+<tr>
+<td>
+<div id="<%= dom_id(restaurant) %>" class="media">
+  <%= image_tag(restaurant.image, class: "mr-3 rounded-circle", width: 128) %>
+</td>
+<td>
+  <div class="media-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="mt-0 mb-3 display-4">
+        <%= link_to restaurant.name, restaurant_path(restaurant) %>
+      </h1>
+      <% if @current_user == restaurant.owner %>
+  <div style="text-align:center">
+    <%= link_to update_restaurant_path(restaurant), class: "btn btn-link btn-sm text-muted", remote: true do %>
+      <i class="fas fa-edit fa-fw"></i>
+    <% end %>
+    <%= link_to delete_restaurant_path(restaurant), method: :delete, class: "btn btn-link btn-sm text-muted", remote: true do %>
+      <i class="fas fa-trash fa-fw"></i>
+    <% end %>
+  </div>
+  <% end %>
+    </div>
+  </div>
+</td>
+</tr>
+</div>
     </div>
   </div>
 <% end %>

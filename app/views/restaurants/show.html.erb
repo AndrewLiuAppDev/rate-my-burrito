@@ -1,3 +1,27 @@
+<br>
+  <h1 style="text-align:center">
+    <%= @restaurant.name %>
+  </h1>
+<br>
+<div>
+<%= form_with(url: new_burrito_path, class: "d-inline-block") do |burrito| %>
+    <%= label_tag :name, "Burrito Name" %>
+    <%= text_field_tag :name %>
+    <%= label_tag :tortilla, "Tortilla" %>
+    <%= text_field_tag :tortilla %>
+    <%= label_tag :price, "Price" %>
+    <%= number_field_tag :price, nil, :step => 0.01 %>
+    <%= label_tag :image, "Image URL" %>
+    <%= text_field_tag :image %>
+
+    <%= hidden_field_tag :restaurant_id, @restaurant.id %>
+    <%= hidden_field_tag :owner_id, @current_user.id %>
+    <%= hidden_field_tag :ratings_count, 0 %>
+
+    <%= button_tag 'Add burrito', class: 'btn btn-primary' %>
+<% end %>
+</div>
+
 <div class="col-md-6 offset-3">
 <br>
 <% @restaurant.burritos.each do |burrito| %>
@@ -8,121 +32,3 @@
   </div>
 <% end %>
 </div>
-
-
-<div>
-  <div>
-    <h1>
-      Restaurant #<%= @restaurant.id %> details
-    </h1>
-
-    <div>
-      <div>
-        <a href="/restaurants">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_restaurant/<%= @restaurant.id %>">
-          Delete restaurant
-        </a>
-      </div>
-    </div>
-
-    <dl>
-      <dt>
-        Name
-      </dt>
-      <dd>
-        <%= @restaurant.name %>
-      </dd>
-
-      <dt>
-        Owner
-      </dt>
-      <dd>
-        <%= @restaurant.owner_id %>
-      </dd>
-
-      <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @restaurant.image %>
-      </dd>
-
-      <dt>
-        Burritos count
-      </dt>
-      <dd>
-        <%= @restaurant.burritos_count %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@restaurant.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@restaurant.updated_at) %> ago
-      </dd>
-    </dl>
-  </div>
-</div>
-
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit restaurant
-    </h2>
-
-    <form action="/modify_restaurant/<%= @restaurant.id %>"  method="post" >
-      <div>
-        <label for="name_box">
-          Name
-        </label>
-
-        <input type="text" id="name_box" name="name" value="<%= @restaurant.name %>">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="owner_id" value="<%= @restaurant.owner_id %>">
-      </div>
-
-      <div>
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="image" value="<%= @restaurant.image %>">
-      </div>
-
-      <div>
-        <label for="burritos_count_box">
-          Burritos count
-        </label>
-
-        <input type="text" id="burritos_count_box" name="burritos_count" value="<%= @restaurant.burritos_count %>">
-      </div>
-
-      <button>
-        Update restaurant
-      </button>
-    </form>
-  </div>
-</div>
-
-<hr>

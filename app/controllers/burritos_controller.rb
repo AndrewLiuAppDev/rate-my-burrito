@@ -8,7 +8,7 @@ class BurritosController < ApplicationController
   end
 
   def show
-    id = params.fetch("path_id")
+    id = params.fetch("burrito_id")
 
     matching_burritos = Burrito.where({ :id => id })
 
@@ -36,7 +36,7 @@ class BurritosController < ApplicationController
   end
 
   def update
-    id = params.fetch("path_id")
+    id = params.fetch("burrito_id")
     burrito = Burrito.where({ :id => id }).at(0)
 
     unless BurritoPolicy.new(@current_user, burrito).update?
@@ -60,13 +60,17 @@ class BurritosController < ApplicationController
   end
 
   def destroy
-    id = params.fetch("path_id")
-    burrito = Burrito.where({ :id => id }).at(0)
+    id = params.fetch("burrito_id")
+    burrito = Burrito.where( id: id ).at(0)
     unless BurritoPolicy.new(@current_user, burrito).destroy?
       raise Pundit::NotAuthorizedError, "not allowed"
     end
     burrito.destroy
+    
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_url, notice: "Burrito deleted successfully." }
 
-    redirect_to("/burritos", { :notice => "Burrito deleted successfully."} )
+      format.js { render template: "burritos/destroy.js.erb"}
+    end
   end
 end

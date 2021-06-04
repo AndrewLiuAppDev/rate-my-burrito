@@ -13,4 +13,7 @@ class Rating < ApplicationRecord
   belongs_to(:rater, { :required => false, :class_name => "User", :foreign_key => "rater_id", :counter_cache => true })
   belongs_to(:burrito, { :required => false, :class_name => "Burrito", :foreign_key => "burrito_id", :counter_cache => true })
   has_one(:restaurant, { :through => :burrito, :source => :restaurant })
+
+  validates :rating_value, presence: true
+
 end

@@ -8,7 +8,7 @@ class RatingsController < ApplicationController
   end
 
   def show
-    id = params.fetch("path_id")
+    id = params.fetch("id")
 
     matching_ratings = Rating.where({ :id => id })
 
@@ -32,7 +32,7 @@ class RatingsController < ApplicationController
   end
 
   def update
-    id = params.fetch("path_id")
+    id = params.fetch("id")
     the_rating = Rating.where({ :id => id }).at(0)
 
     the_rating.rating_value = params.fetch("rating_value")
@@ -48,7 +48,7 @@ class RatingsController < ApplicationController
   end
 
   def destroy
-    id = params.fetch("path_id")
+    id = params.fetch("id")
     the_rating = Rating.where({ :id => id }).at(0)
 
     the_rating.destroy

@@ -28,9 +28,19 @@
     <span class="fa fa-star"></span>
     <% end %>
   </h5>
+    <div style="text-align:center">
+      <%= render "ratings/rating", burrito: burrito %>
+    </div>
+  <% if @current_user == burrito.owner %>
   <div style="text-align:center">
-  <%= render "ratings/rating", burrito: burrito %>
+    <%= link_to update_burrito_path(burrito), class: "btn btn-link btn-sm text-muted", remote: true do %>
+      <i class="fas fa-edit fa-fw"></i>
+    <% end %>
+    <%= link_to delete_burrito_path(burrito), method: :delete, class: "btn btn-link btn-sm text-muted", remote: true do %>
+      <i class="fas fa-trash fa-fw"></i>
+    <% end %>
   </div>
+  <% end %>
 </div>
 
 

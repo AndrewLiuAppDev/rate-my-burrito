@@ -8,7 +8,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    id = params.fetch("path_id")
+    id = params.fetch("restaurant_id")
 
     matching_restaurants = Restaurant.where(id: id)
 
@@ -33,7 +33,7 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    id = params.fetch("path_id")
+    id = params.fetch("restaurant_id")
     restaurant = Restaurant.where({ :id => id }).at(0)
 
     unless RestaurantPolicy.new(@current_user, restaurant).update?
@@ -54,7 +54,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    id = params.fetch("path_id")
+    id = params.fetch("restaurant_id")
     restaurant = Restaurant.where({ :id => id }).at(0)
     
     unless RestaurantPolicy.new(@current_user, restaurant).destroy?
@@ -64,6 +64,10 @@ class RestaurantsController < ApplicationController
 
     restaurant.destroy
 
-    redirect_to("/restaurants", { :notice => "Restaurant deleted successfully."} )
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_url, notice: "Restaurant deleted successfully." }
+
+      format.js { render template: "restaurant/destroy.js.erb"}
+    end
   end
 end

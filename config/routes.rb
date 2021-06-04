@@ -12,52 +12,52 @@ Rails.application.routes.draw do
   # READ
   get("/ratings", { :controller => "ratings", :action => "index" })
   
-  get("/ratings/:path_id", { :controller => "ratings", :action => "show" })
+  get("/ratings/:id", { :controller => "ratings", :action => "show" })
   
   # UPDATE
   
-  post("/modify_rating/:path_id", { :controller => "ratings", :action => "update" })
+  post("/modify_rating/:id", { :controller => "ratings", :action => "update" })
   
   # DELETE
-  get("/delete_rating/:path_id", { :controller => "ratings", :action => "destroy" })
+  get("/delete_rating/:id", { :controller => "ratings", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Restaurant resource:
 
   # CREATE
-  post("/insert_restaurant", { :controller => "restaurants", :action => "create" })
+  post "/insert_restaurant" => "restaurants#create", as: :new_restaurant
           
   # READ
-  get("/restaurants", { :controller => "restaurants", :action => "index" })
+  get "/restaurants" => "restaurants#index", as: :restaurants
   
-  get "/restaurants/:path_id" => "restaurants#show", as: :restaurant
+  get "/restaurants/:restaurant_id" => "restaurants#show", as: :restaurant
   
   # UPDATE
   
-  post("/modify_restaurant/:path_id", { :controller => "restaurants", :action => "update" })
+  post "/modify_restaurant/:restaurant_id" => "restaurants#update", as: :update_restaurant
   
   # DELETE
-  get("/delete_restaurant/:path_id", { :controller => "restaurants", :action => "destroy" })
+  get "/delete_restaurant/:restaurant_id" => "restaurants#destroy", as: :delete_restaurant
 
   #------------------------------
 
   # Routes for the Burrito resource:
 
   # CREATE
-  post("/insert_burrito", { :controller => "burritos", :action => "create" })
+  post "/insert_burrito" => "burritos#create", as: :new_burrito
           
   # READ
   get("/burritos", { :controller => "burritos", :action => "index" })
   
-  get("/burritos/:path_id", { :controller => "burritos", :action => "show" })
+  get("/burritos/:burrito_id", { :controller => "burritos", :action => "show" })
   
   # UPDATE
   
-  post("/modify_burrito/:path_id", { :controller => "burritos", :action => "update" })
+  post "/modify_burrito/:burrito_id" => "burritos#update", as: :update_burrito
   
   # DELETE
-  get("/delete_burrito/:path_id", { :controller => "burritos", :action => "destroy" })
+  get "/delete_burrito/:burrito_id" => "burritos#destroy", as: :delete_burrito
 
   #------------------------------
 
