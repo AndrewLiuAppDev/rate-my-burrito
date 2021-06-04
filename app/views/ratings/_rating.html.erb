@@ -1,0 +1,9 @@
+<%= form_with(url: new_rating_path, class: "d-inline-block") do |rating| %>
+    <%= label_tag :rating_value_box, "Your Rating" %>
+    <%= number_field_tag :rating_value, nil, within: 0...6 %>
+
+    <%= hidden_field_tag :burrito_id, burrito.id %>
+    <%= hidden_field_tag :rater_id, @current_user.id %>
+
+    <%= button_tag 'Rate' %>
+<% end %>

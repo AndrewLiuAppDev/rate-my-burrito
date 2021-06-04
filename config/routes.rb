@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Routes for the Rating resource:
 
   # CREATE
-  post("/insert_rating", { :controller => "ratings", :action => "create" })
+  post "/insert_rating" => "ratings#create", as: :new_rating
           
   # READ
   get("/ratings", { :controller => "ratings", :action => "index" })
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   # READ
   get("/restaurants", { :controller => "restaurants", :action => "index" })
   
-  get("/restaurants/:path_id", { :controller => "restaurants", :action => "show" })
+  get "/restaurants/:path_id" => "restaurants#show", as: :restaurant
   
   # UPDATE
   
@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   # Routes for the User account:
 
   # SIGN UP FORM
-  get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
+  get "/user_sign_up" => "user_authentication#sign_up_form"     
   # CREATE RECORD
   post("/insert_user", { :controller => "user_authentication", :action => "create"  })
       

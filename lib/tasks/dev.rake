@@ -33,12 +33,14 @@ task({ :sample_data => :environment}) do
   end
 
   users = User.all
+  restaurantimages = ["https://tinyurl.com/upnpwa2", "https://tinyurl.com/uwb7bn6y", "https://tinyurl.com/s53hynn6", "https://tinyurl.com/abpsnv9x", "https://tinyurl.com/xjn7zpsc"]
 
   users.each do |user|
     rand(3).times do
       restaurant = user.restaurants.create(
         name: Faker::Restaurant.name,
-        burritos_count: 0
+        burritos_count: 0,
+        image: restaurantimages.sample
       )
     end
   end

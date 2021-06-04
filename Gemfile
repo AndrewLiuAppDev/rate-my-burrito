@@ -14,7 +14,8 @@ gem 'sprockets', '< 4'
 gem 'sassc-rails'
 gem 'devise'
 
-gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'faker'
+gem 'pundit'
 
 group :development do
   gem 'listen', '~> 3.2'

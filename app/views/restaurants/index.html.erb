@@ -20,7 +20,7 @@
           Name
         </label>
 
-        <input type="text" id="name_box" name="query_name">
+        <input type="text" id="name_box" name="name">
       </div>
 
       <div>
@@ -28,7 +28,7 @@
           Owner
         </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id">
+        <input type="text" id="owner_id_box" name="owner_id">
       </div>
 
       <div>
@@ -36,7 +36,7 @@
           Image
         </label>
 
-        <input type="text" id="image_box" name="query_image">
+        <input type="text" id="image_box" name="image">
       </div>
 
       <div>
@@ -44,7 +44,7 @@
           Burritos count
         </label>
 
-        <input type="text" id="burritos_count_box" name="query_burritos_count">
+        <input type="text" id="burritos_count_box" name="burritos_count">
       </div>
 
       <button>
@@ -54,81 +54,11 @@
   </div>
 </div>
 
-<hr>
-<div>
-  <div>
-    <table>
-      <tr>
-        <th>
-          ID
-        </th>
-
-        <th>
-          Name
-        </th>
-
-        <th>
-          Owner
-        </th>
-
-        <th>
-          Image
-        </th>
-
-        <th>
-          Burritos count
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_restaurants.each do |a_restaurant| %>
-      <tr>
-        <td>
-          <%= a_restaurant.id %>
-        </td>
-
-        <td>
-          <%= a_restaurant.name %>
-        </td>
-
-        <td>
-          <%= a_restaurant.owner_id %>
-        </td>
-
-        <td>
-          <%= a_restaurant.image %>
-        </td>
-
-        <td>
-          <%= a_restaurant.burritos_count %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_restaurant.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_restaurant.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/restaurants/<%= a_restaurant.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
+<br>
+<% @list_of_restaurants.each do |restaurant| %>
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <%= render "restaurants/restaurant", restaurant: restaurant %>
+    </div>
   </div>
-</div>
-
-<hr>
+<% end %>

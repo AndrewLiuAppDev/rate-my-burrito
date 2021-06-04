@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
  def recommendation
     all_burritos = Burrito.all
-    owned_burritos = Burrito.where({ :owner_id => self.id })
+    owned_burritos = Burrito.where(owner_id: self.id)
     all_burritos.delete(owned_burritos)
     sorted_burritos = all_burritos.sort do |a,b|
       b.avg_rating <=> a.avg_rating

@@ -8,24 +8,24 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
+    id = params.fetch("path_id")
 
-    matching_restaurants = Restaurant.where({ :id => the_id })
+    matching_restaurants = Restaurant.where(id: id)
 
-    @the_restaurant = matching_restaurants.at(0)
+    @restaurant = matching_restaurants.at(0)
 
-    render({ :template => "restaurants/show.html.erb" })
+    render template: "restaurants/show.html.erb"
   end
 
   def create
-    the_restaurant = Restaurant.new
-    the_restaurant.name = params.fetch("query_name")
-    the_restaurant.owner_id = params.fetch("query_owner_id")
-    the_restaurant.image = params.fetch("query_image")
-    the_restaurant.burritos_count = params.fetch("query_burritos_count")
+    restaurant = Restaurant.new
+    restaurant.name = params.fetch("name")
+    restaurant.owner_id = params.fetch("owner_id")
+    restaurant.image = params.fetch("image")
+    restaurant.burritos_count = params.fetch("burritos_count")
 
-    if the_restaurant.valid?
-      the_restaurant.save
+    if restaurant.valid?
+      restaurant.save
       redirect_to("/restaurants", { :notice => "Restaurant created successfully." })
     else
       redirect_to("/restaurants", { :notice => "Restaurant failed to create successfully." })
@@ -33,27 +33,36 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    the_id = params.fetch("path_id")
-    the_restaurant = Restaurant.where({ :id => the_id }).at(0)
+    id = params.fetch("path_id")
+    restaurant = Restaurant.where({ :id => id }).at(0)
 
-    the_restaurant.name = params.fetch("query_name")
-    the_restaurant.owner_id = params.fetch("query_owner_id")
-    the_restaurant.image = params.fetch("query_image")
-    the_restaurant.burritos_count = params.fetch("query_burritos_count")
+    unless RestaurantPolicy.new(@current_user, restaurant).update?
+      raise Pundit::NotAuthorizedError, "not allowed"
+    end
 
-    if the_restaurant.valid?
-      the_restaurant.save
-      redirect_to("/restaurants/#{the_restaurant.id}", { :notice => "Restaurant updated successfully."} )
+    restaurant.name = params.fetch("name")
+    restaurant.owner_id = params.fetch("owner_id")
+    restaurant.image = params.fetch("image")
+    restaurant.burritos_count = params.fetch("burritos_count")
+
+    if restaurant.valid?
+      restaurant.save
+      redirect_to("/restaurants/#{restaurant.id}", { :notice => "Restaurant updated successfully."} )
     else
-      redirect_to("/restaurants/#{the_restaurant.id}", { :alert => "Restaurant failed to update successfully." })
+      redirect_to("/restaurants/#{restaurant.id}", { :alert => "Restaurant failed to update successfully." })
     end
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_restaurant = Restaurant.where({ :id => the_id }).at(0)
+    id = params.fetch("path_id")
+    restaurant = Restaurant.where({ :id => id }).at(0)
+    
+    unless RestaurantPolicy.new(@current_user, restaurant).destroy?
+      raise Pundit::NotAuthorizedError, "not allowed"
+    end
 
-    the_restaurant.destroy
+
+    restaurant.destroy
 
     redirect_to("/restaurants", { :notice => "Restaurant deleted successfully."} )
   end

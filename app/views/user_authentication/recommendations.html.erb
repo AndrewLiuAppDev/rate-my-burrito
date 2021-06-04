@@ -1,8 +1,10 @@
+<div class="col-md-6 offset-3">
 <br>
 <% @current_user.recommendation.each do |burrito| %>
-  <div class="row mb-4">
-    <div class="col-md-6 offset-md-3">
+  <div class="row-4">
+    <div class="col">
       <%= render "burritos/burrito", burrito: burrito %>
     </div>
   </div>
 <% end %>
+</div>

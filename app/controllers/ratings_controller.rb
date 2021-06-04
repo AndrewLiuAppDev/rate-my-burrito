@@ -8,9 +8,9 @@ class RatingsController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
+    id = params.fetch("path_id")
 
-    matching_ratings = Rating.where({ :id => the_id })
+    matching_ratings = Rating.where({ :id => id })
 
     @the_rating = matching_ratings.at(0)
 
@@ -19,9 +19,9 @@ class RatingsController < ApplicationController
 
   def create
     the_rating = Rating.new
-    the_rating.rating_value = params.fetch("query_rating_value")
-    the_rating.burrito_id = params.fetch("query_burrito_id")
-    the_rating.rater_id = params.fetch("query_rater_id")
+    the_rating.rating_value = params.fetch("rating_value")
+    the_rating.burrito_id = params.fetch("burrito_id")
+    the_rating.rater_id = params.fetch("rater_id")
 
     if the_rating.valid?
       the_rating.save
@@ -32,12 +32,12 @@ class RatingsController < ApplicationController
   end
 
   def update
-    the_id = params.fetch("path_id")
-    the_rating = Rating.where({ :id => the_id }).at(0)
+    id = params.fetch("path_id")
+    the_rating = Rating.where({ :id => id }).at(0)
 
-    the_rating.rating_value = params.fetch("query_rating_value")
-    the_rating.burrito_id = params.fetch("query_burrito_id")
-    the_rating.rater_id = params.fetch("query_rater_id")
+    the_rating.rating_value = params.fetch("rating_value")
+    the_rating.burrito_id = params.fetch("burrito_id")
+    the_rating.rater_id = params.fetch("rater_id")
 
     if the_rating.valid?
       the_rating.save
@@ -48,8 +48,8 @@ class RatingsController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_rating = Rating.where({ :id => the_id }).at(0)
+    id = params.fetch("path_id")
+    the_rating = Rating.where({ :id => id }).at(0)
 
     the_rating.destroy
 

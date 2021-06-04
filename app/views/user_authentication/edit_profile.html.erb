@@ -7,25 +7,25 @@
     <form action="/modify_user" method="post">
       <div>
         <label for="email_box">Email</label>
-        <input id="email_box" name="query_email" value="<%= @current_user.email %>">
+        <input id="email_box" name="email" value="<%= @current_user.email %>">
       </div>
       <div>
         <label for="user_type_box">User type</label>
-        <input id="user_type_box" name="query_user_type" value="<%= @current_user.user_type %>">
+        <input id="user_type_box" name="user_type" value="<%= @current_user.user_type %>">
       </div>
       <div>
         <label for="name_box">Name</label>
-        <input id="name_box" name="query_name" value="<%= @current_user.name %>">
+        <input id="name_box" name="name" value="<%= @current_user.name %>">
       </div>
 
       <div>
         <label for="password_box">Password</label>
-        <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
+        <input id="password_box" name="password" placeholder="Choose a password..." type="password">
       </div>
     
       <div>
         <label for="password_confirmation_box">Password Confirmation</label>
-        <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
+        <input id="password_confirmation_box" name="password_confirmation" placeholder="Confirm your password..." type="password">
       </div>
 
       <button>

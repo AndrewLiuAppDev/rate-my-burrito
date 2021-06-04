@@ -7,9 +7,9 @@ class UserAuthenticationController < ApplicationController
   end
 
   def create_cookie
-    user = User.where({ :email => params.fetch("query_email") }).first
+    user = User.where({ :email => params.fetch("email") }).first
     
-    the_supplied_password = params.fetch("query_password")
+    the_supplied_password = params.fetch("password")
     
     if user != nil
       are_they_legit = user.authenticate(the_supplied_password)
@@ -38,11 +38,11 @@ class UserAuthenticationController < ApplicationController
 
   def create
     @user = User.new
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.user_type = params.fetch("query_user_type")
-    @user.name = params.fetch("query_name")
+    @user.email = params.fetch("email")
+    @user.password = params.fetch("password")
+    @user.password_confirmation = params.fetch("password_confirmation")
+    @user.user_type = params.fetch("user_type")
+    @user.name = params.fetch("name")
     @user.avatar = ""
     @user.burritos_count = 0
     @user.ratings_count = 0
@@ -65,15 +65,15 @@ class UserAuthenticationController < ApplicationController
 
   def update
     @user = @current_user
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.user_type = params.fetch("query_user_type")
-    @user.name = params.fetch("query_name")
-    @user.avatar = params.fetch("query_avatar")
-    @user.burritos_count = params.fetch("query_burritos_count")
-    @user.ratings_count = params.fetch("query_ratings_count")
-    @user.restaurants_count = params.fetch("query_restaurants_count")
+    @user.email = params.fetch("email")
+    @user.password = params.fetch("password")
+    @user.password_confirmation = params.fetch("password_confirmation")
+    @user.user_type = params.fetch("user_type")
+    @user.name = params.fetch("name")
+    @user.avatar = params.fetch("avatar")
+    @user.burritos_count = params.fetch("burritos_count")
+    @user.ratings_count = params.fetch("ratings_count")
+    @user.restaurants_count = params.fetch("restaurants_count")
     
     if @user.valid?
       @user.save

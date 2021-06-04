@@ -1,7 +1,19 @@
+<div class="col-md-6 offset-3">
+<br>
+<% @restaurant.burritos.each do |burrito| %>
+  <div class="row-4">
+    <div class="col">
+      <%= render "burritos/burrito", burrito: burrito %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
 <div>
   <div>
     <h1>
-      Restaurant #<%= @the_restaurant.id %> details
+      Restaurant #<%= @restaurant.id %> details
     </h1>
 
     <div>
@@ -12,7 +24,7 @@
       </div>
 
       <div>
-        <a href="/delete_restaurant/<%= @the_restaurant.id %>">
+        <a href="/delete_restaurant/<%= @restaurant.id %>">
           Delete restaurant
         </a>
       </div>
@@ -23,42 +35,42 @@
         Name
       </dt>
       <dd>
-        <%= @the_restaurant.name %>
+        <%= @restaurant.name %>
       </dd>
 
       <dt>
         Owner
       </dt>
       <dd>
-        <%= @the_restaurant.owner_id %>
+        <%= @restaurant.owner_id %>
       </dd>
 
       <dt>
         Image
       </dt>
       <dd>
-        <%= @the_restaurant.image %>
+        <%= @restaurant.image %>
       </dd>
 
       <dt>
         Burritos count
       </dt>
       <dd>
-        <%= @the_restaurant.burritos_count %>
+        <%= @restaurant.burritos_count %>
       </dd>
 
       <dt>
         Created at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_restaurant.created_at) %> ago
+        <%= time_ago_in_words(@restaurant.created_at) %> ago
       </dd>
 
       <dt>
         Updated at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_restaurant.updated_at) %> ago
+        <%= time_ago_in_words(@restaurant.updated_at) %> ago
       </dd>
     </dl>
   </div>
@@ -73,13 +85,13 @@
       Edit restaurant
     </h2>
 
-    <form action="/modify_restaurant/<%= @the_restaurant.id %>"  method="post" >
+    <form action="/modify_restaurant/<%= @restaurant.id %>"  method="post" >
       <div>
         <label for="name_box">
           Name
         </label>
 
-        <input type="text" id="name_box" name="query_name" value="<%= @the_restaurant.name %>">
+        <input type="text" id="name_box" name="name" value="<%= @restaurant.name %>">
       </div>
 
       <div>
@@ -87,7 +99,7 @@
           Owner
         </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_restaurant.owner_id %>">
+        <input type="text" id="owner_id_box" name="owner_id" value="<%= @restaurant.owner_id %>">
       </div>
 
       <div>
@@ -95,7 +107,7 @@
           Image
         </label>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_restaurant.image %>">
+        <input type="text" id="image_box" name="image" value="<%= @restaurant.image %>">
       </div>
 
       <div>
@@ -103,7 +115,7 @@
           Burritos count
         </label>
 
-        <input type="text" id="burritos_count_box" name="query_burritos_count" value="<%= @the_restaurant.burritos_count %>">
+        <input type="text" id="burritos_count_box" name="burritos_count" value="<%= @restaurant.burritos_count %>">
       </div>
 
       <button>

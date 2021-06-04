@@ -9,20 +9,27 @@
 </head>
 <body>
 
+<br>
 <div id="<%= dom_id(burrito) %>" class="card">
-  <h5><%= Restaurant.where({ :id => burrito.restaurant_id }).at(0).name %></h5>
+  <table>
+  <tr>
+  <%= render "restaurants/restaurant", restaurant: Restaurant.where(id: burrito.restaurant_id).at(0) %>
+  </tr>
+  </table>
   <%= image_tag burrito.image, class: "img-fluid" %>
-  <h5><%= burrito.name %></h5>
-  <h5>$<%= burrito.price %></h5>
-  <h5><%= burrito.tortilla %></h5>
-  <h5><%= burrito.avg_rating.round(1) %></h5>
-  <div>
+  <h5 style="text-align:center"><%= burrito.name %></h5>
+  <h5 style="text-align:center">Price: $<%= burrito.price %></h5>
+  <h5 style="text-align:center">Tortilla: <%= burrito.tortilla %></h5>
+  <h5 style="text-align:center">Avg Rating: <%= burrito.avg_rating.round(1) %>
     <% burrito.avg_rating.round(0).times do |star| %>
     <span class="fa fa-star checked"></span>
     <% end %>
-    <% (5-burrito.avg_rating).round(0).times do |star| %>
+    <% (5-burrito.avg_rating.round(0)).times do |star| %>
     <span class="fa fa-star"></span>
     <% end %>
+  </h5>
+  <div style="text-align:center">
+  <%= render "ratings/rating", burrito: burrito %>
   </div>
 </div>
 
