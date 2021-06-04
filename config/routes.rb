@@ -9,18 +9,6 @@ Rails.application.routes.draw do
   # CREATE
   post "/insert_rating" => "ratings#create", as: :new_rating
           
-  # READ
-  get("/ratings", { :controller => "ratings", :action => "index" })
-  
-  get("/ratings/:id", { :controller => "ratings", :action => "show" })
-  
-  # UPDATE
-  
-  post("/modify_rating/:id", { :controller => "ratings", :action => "update" })
-  
-  # DELETE
-  get("/delete_rating/:id", { :controller => "ratings", :action => "destroy" })
-
   #------------------------------
 
   # Routes for the Restaurant resource:
@@ -31,14 +19,14 @@ Rails.application.routes.draw do
   # READ
   get "/restaurants" => "restaurants#index", as: :restaurants
   
-  get "/restaurants/:restaurant_id" => "restaurants#show", as: :restaurant
+  get "/restaurants/:id" => "restaurants#show", as: :restaurant
   
   # UPDATE
   
-  post "/modify_restaurant/:restaurant_id" => "restaurants#update", as: :update_restaurant
+  post "/modify_restaurant/:id" => "restaurants#update", as: :update_restaurant
   
   # DELETE
-  get "/delete_restaurant/:restaurant_id" => "restaurants#destroy", as: :delete_restaurant
+  get "/delete_restaurant/:id" => "restaurants#destroy", as: :delete_restaurant
 
   #------------------------------
 
@@ -48,16 +36,15 @@ Rails.application.routes.draw do
   post "/insert_burrito" => "burritos#create", as: :new_burrito
           
   # READ
-  get("/burritos", { :controller => "burritos", :action => "index" })
   
-  get("/burritos/:burrito_id", { :controller => "burritos", :action => "show" })
+  get "/burritos/:id" => "burritos#show", as: :burrito
   
   # UPDATE
   
-  post "/modify_burrito/:burrito_id" => "burritos#update", as: :update_burrito
+  post "/modify_burrito/:id" => "burritos#update", as: :update_burrito
   
   # DELETE
-  get "/delete_burrito/:burrito_id" => "burritos#destroy", as: :delete_burrito
+  get "/delete_burrito/:id" => "burritos#destroy", as: :delete_burrito
 
   #------------------------------
 
@@ -66,25 +53,25 @@ Rails.application.routes.draw do
   # SIGN UP FORM
   get "/user_sign_up" => "user_authentication#sign_up_form"     
   # CREATE RECORD
-  post("/insert_user", { :controller => "user_authentication", :action => "create"  })
+  post "/insert_user" => "user_authentication#create"
       
   # EDIT PROFILE FORM        
-  get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
+  get "/edit_user_profile" => "user_authentication#edit_profile_form"       
   # UPDATE RECORD
-  post("/modify_user", { :controller => "user_authentication", :action => "update" })
+  post "/modify_user" => "user_authentication#update"
   
   # DELETE RECORD
-  get("/cancel_user_account", { :controller => "user_authentication", :action => "destroy" })
+  get "/cancel_user_account" => "user_authentication#destroy"
 
   # ------------------------------
 
   # SIGN IN FORM
-  get("/user_sign_in", { :controller => "user_authentication", :action => "sign_in_form" })
+  get "/user_sign_in" => "user_authentication#sign_in_form"
   # AUTHENTICATE AND STORE COOKIE
-  post("/user_verify_credentials", { :controller => "user_authentication", :action => "create_cookie" })
+  post "/user_verify_credentials" => "user_authentication#create_cookie"
   
   # SIGN OUT        
-  get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
+  get "/user_sign_out" => "user_authentication#destroy_cookies"
              
   #------------------------------
 

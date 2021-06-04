@@ -3,7 +3,7 @@ class UserAuthenticationController < ApplicationController
   skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
   def sign_in_form
-    render({ :template => "user_authentication/sign_in.html.erb" })
+    render( template: "user_authentication/sign_in.html.erb" )
   end
 
   def create_cookie
@@ -33,7 +33,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def sign_up_form
-    render({ :template => "user_authentication/sign_up.html.erb" })
+    render( template: "user_authentication/sign_up.html.erb")
   end
 
   def create
@@ -53,14 +53,14 @@ class UserAuthenticationController < ApplicationController
     if save_status == true
       session[:user_id] = @user.id
    
-      redirect_to("/", { :notice => "User account created successfully."})
+      redirect_to("/", notice: "User account created successfully." )
     else
-      redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })
+      redirect_to("/user_sign_up", alert: @user.errors.full_messages.to_sentence )
     end
   end
     
   def edit_profile_form
-    render({ :template => "user_authentication/edit_profile.html.erb" })
+    render( template: "user_authentication/edit_profile.html.erb" )
   end
 
   def update
@@ -70,10 +70,6 @@ class UserAuthenticationController < ApplicationController
     @user.password_confirmation = params.fetch("password_confirmation")
     @user.user_type = params.fetch("user_type")
     @user.name = params.fetch("name")
-    @user.avatar = params.fetch("avatar")
-    @user.burritos_count = params.fetch("burritos_count")
-    @user.ratings_count = params.fetch("ratings_count")
-    @user.restaurants_count = params.fetch("restaurants_count")
     
     if @user.valid?
       @user.save

@@ -14,7 +14,7 @@
 </div>
 
 <br>
-<% @list_of_restaurants.each do |restaurant| %>
+<% @restaurants.each do |restaurant| %>
   <div class="row mb-4">
     <div class="col-md-6 offset-md-3">
       <table style="width:100%">
@@ -31,7 +31,7 @@
       </h1>
       <% if @current_user == restaurant.owner %>
   <div style="text-align:center">
-    <%= link_to update_restaurant_path(restaurant), class: "btn btn-link btn-sm text-muted", remote: true do %>
+    <%= link_to restaurants_path, class: "btn btn-link btn-sm text-muted", remote: true do %>
       <i class="fas fa-edit fa-fw"></i>
     <% end %>
     <%= link_to delete_restaurant_path(restaurant), method: :delete, class: "btn btn-link btn-sm text-muted", remote: true do %>
